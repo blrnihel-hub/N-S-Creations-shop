@@ -1,0 +1,89 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A product in the store",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "localizedName": { "type": "object" },
+        "localizedDescription": { "type": "object" },
+        "price": { "type": "number" },
+        "image": { "type": "string" },
+        "category": { "type": "string" },
+        "subCategory": { "type": "string" },
+        "colors": { "type": "array" },
+        "colorImages": { "type": "object" },
+        "measure": { "type": "string" },
+        "age": { "type": "string" },
+        "isSoldOut": { "type": "boolean" },
+        "availableDimensions": { "type": "array" },
+        "requiresCustomDimensions": { "type": "boolean" },
+        "requiresDescription": { "type": "boolean" }
+      },
+      "required": ["id", "name", "price", "image", "category"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer order",
+      "type": "object",
+      "properties": {
+        "customerInfo": { "type": "object" },
+        "items": { "type": "array" },
+        "total": { "type": "number" },
+        "deliveryPrice": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "shipped", "delivered", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "orderId": { "type": "string" }
+      },
+      "required": ["customerInfo", "items", "total", "status", "createdAt", "orderId"]
+    },
+    "SiteSettings": {
+      "title": "SiteSettings",
+      "description": "Global site settings",
+      "type": "object",
+      "properties": {
+        "siteName": { "type": "string" },
+        "videoUrl": { "type": "string" },
+        "heroImage": { "type": "string" },
+        "heroTitle": { "type": "object" },
+        "heroSubtitle": { "type": "object" },
+        "heroDescription": { "type": "object" },
+        "logoImage": { "type": "string" },
+        "logoBg": { "type": "string" },
+        "logoSize": { "type": "number" },
+        "logoPadding": { "type": "number" },
+        "logoFit": { "type": "string" },
+        "logoColors": { "type": "object" },
+        "logoTransparent": { "type": "object" },
+        "navBg": { "type": "string" },
+        "colors": { "type": "object" },
+        "colorMap": { "type": "object" },
+        "checkoutDirectly": { "type": "boolean" },
+        "socialLinks": { "type": "object" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "copyrightText": { "type": "object" },
+        "footerDescription": { "type": "object" },
+        "deliveryPrices": { "type": "object" },
+        "wilayaPrices": { "type": "object" }
+      }
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Store products"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/SiteSettings" },
+      "description": "Global site settings"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Customer orders"
+    }
+  }
+}
